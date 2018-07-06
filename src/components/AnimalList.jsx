@@ -3,23 +3,44 @@ import { connect } from 'react-redux';
 
 class AnimalList extends Component {
 
+    renderAnimalsList() {
+        let counter = 0;
+
+        return this.props.animals.map((animal) => {
+            console.log('renderAnimalsList', animal)
+            counter = counter + 1;
+            return(
+                <li 
+                    key={counter}
+                    className="list-group-item">
+                    <p>Name : {animal.name}</p>
+                </li>
+            )
+        })
+    }
+
     render() {
 
         // console.log('animalList',this);
 
         return(
-            <div>hello from animalList</div>
+            <ul className="list-group">
+                {this.renderAnimalsList()}
+            </ul>
         )
     }
 }
 
 function mapStateToProps(state){
+
+    // console.log('mapStateToProps', state)
     return {
-        name : 'bluebeard'
+        animals : state.animals
 
     }
 }
 
-export default AnimalList;
+// export default AnimalList;
+export default connect(mapStateToProps)(AnimalList);
 
 
