@@ -41,6 +41,7 @@ function mapStateToProps(state){
 }
 
 // export default AnimalList;
+// Wrapped component -> Higher order component
 export default connect(mapStateToProps)(AnimalList);
 
 
