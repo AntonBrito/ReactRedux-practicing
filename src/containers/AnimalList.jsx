@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { selectAnimal } from '../actions/index';
+import { bindActionCreators } from 'redux';
+
 class AnimalList extends Component {
 
     renderAnimalsList() {
         let counter = 0;
 
         return this.props.animals.map((animal) => {
-            console.log('renderAnimalsList', animal)
+        
             counter = counter + 1;
             return(
                 <li 
+                    onClick={() => {this.props.selectAnimal(animal)}}
                     key={counter}
                     className="list-group-item">
                     <p>Name : {animal.name}</p>
@@ -21,7 +25,7 @@ class AnimalList extends Component {
 
     render() {
 
-        // console.log('animalList',this);
+        //   console.log('animalList',this);
 
         return(
             <ul className="list-group">
@@ -40,8 +44,14 @@ function mapStateToProps(state){
     }
 }
 
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        selectAnimal : selectAnimal
+    }, dispatch)
+}
+
 // export default AnimalList;
 // Wrapped component -> Higher order component
-export default connect(mapStateToProps)(AnimalList);
+export default connect(mapStateToProps, mapDispatchToProps)(AnimalList);
 
 
